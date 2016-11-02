@@ -1,3 +1,6 @@
+#include <IntervalTimer.h>
+#include <PulseSensorBPM.h>
+
 //   RGB Shades Demo Code
 //   Copyright (c) 2015 macetech LLC
 //   This software is provided under the MIT License (see license.txt)
@@ -29,9 +32,16 @@
 //   Brightness, selected effect, and auto-cycle are saved in EEPROM after a delay
 //   The RGB Shades will automatically start up with the last-selected settings
 
+//  Variables
+int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
+
+#define MICROS_PER_READ 1000
+
+IntervalTimer timer0;
+PulseSensorBPM pulseDetector(pulsePin, MICROS_PER_READ / 1000L);
 
 // RGB Shades data output to LEDs is on pin 5
-#define LED_PIN  5
+#define LED_PIN  17
 
 // RGB Shades color order (Green/Red/Blue)
 #define COLOR_ORDER GRB
@@ -60,6 +70,11 @@
 #include "effects.h"
 #include "buttons.h"
 
+#define serialDelay 20
+
+void timerCallback0() {
+  pulseDetector.readSensor();
+}
 
 // Runs one time at the start of the program (power up or reset)
 void setup() {
@@ -83,6 +98,11 @@ void setup() {
   pinMode(MODEBUTTON, INPUT_PULLUP);
   pinMode(BRIGHTNESSBUTTON, INPUT_PULLUP);
 
+//  pinMode(blinkPin,OUTPUT);         // pin that will blink to your heartbeat!
+  Serial.begin(115200);             // we agree to talk fast!
+      
+  timer0.begin(timerCallback0, 1000); // 2 ms
+
 }
 
 // list of functions that will be displayed
@@ -97,7 +117,9 @@ functionList effectList[] = {threeSine,
                              slantBars,
                              scrollTextTwo,
                              colorFill,
-                             sideRain
+                             sideRain,
+                             randyIsAwesome,
+                             pulseDisplay
                             };
 
 const byte numEffects = (sizeof(effectList)/sizeof(effectList[0]));

@@ -6,6 +6,129 @@
 //    * All animation should be controlled with counters and effectDelay, no delay() or loops
 //    * Pixel data should be written using leds[XY(x,y)] to map coordinates to the RGB Shades layout
 
+
+void pulseDisplay() {
+  if (effectInit == false) {
+    effectInit = true;
+    effectDelay = 25;
+  }
+
+  for (byte x = 0; x < kMatrixWidth; x++) {
+    for (int y = 0; y < kMatrixHeight; y++) {
+      leds[XY(x, y)] = CRGB(0,0,0);
+    }
+  }
+
+  if(pulseDetector.isPulse()) {
+    leds[XY(0,1)] = CRGB(255, 0, 0);
+    leds[XY(1,0)] = CRGB(255, 0, 0);
+    leds[XY(1,1)] = CRGB(255, 0, 0);
+    leds[XY(2,0)] = CRGB(255, 0, 0);
+    leds[XY(3,1)] = CRGB(255, 0, 0);
+    leds[XY(4,0)] = CRGB(255, 0, 0);
+    leds[XY(5,0)] = CRGB(255, 0, 0);
+    leds[XY(5,1)] = CRGB(255, 0, 0);
+    leds[XY(6,1)] = CRGB(255, 0, 0);
+    leds[XY(0,2)] = CRGB(255, 0, 0);
+    leds[XY(1,3)] = CRGB(255, 0, 0);
+    leds[XY(2,4)] = CRGB(255, 0, 0);
+    leds[XY(4,4)] = CRGB(255, 0, 0);
+    leds[XY(5,3)] = CRGB(255, 0, 0);
+    leds[XY(6,2)] = CRGB(255, 0, 0);
+
+    leds[XY(9,1)] = CRGB(255, 0, 0);
+    leds[XY(10,0)] = CRGB(255, 0, 0);
+    leds[XY(10,1)] = CRGB(255, 0, 0);
+    leds[XY(11,0)] = CRGB(255, 0, 0);
+    leds[XY(12,1)] = CRGB(255, 0, 0);
+    leds[XY(13,0)] = CRGB(255, 0, 0);
+    leds[XY(14,0)] = CRGB(255, 0, 0);
+    leds[XY(14,1)] = CRGB(255, 0, 0);
+    leds[XY(15,1)] = CRGB(255, 0, 0);
+
+    leds[XY(9,2)] = CRGB(255, 0, 0);
+    leds[XY(10,3)] = CRGB(255, 0, 0);
+    leds[XY(11,4)] = CRGB(255, 0, 0);
+    leds[XY(13,4)] = CRGB(255, 0, 0);
+    leds[XY(14,3)] = CRGB(255, 0, 0);
+    leds[XY(15,2)] = CRGB(255, 0, 0);
+
+    effectDelay = pulseDetector.getIBI() / 2;
+  } else {
+    effectDelay = 25;
+  }
+  leds[XY(1, 2)] = CRGB(255, 0, 0);
+  leds[XY(2, 3)] = CRGB(255, 0, 0);
+  leds[XY(2, 2)] = CRGB(255, 0, 0);
+  leds[XY(2, 1)] = CRGB(255, 0, 0);
+  leds[XY(3, 2)] = CRGB(255, 0, 0);
+  leds[XY(3, 3)] = CRGB(255, 0, 0);
+  leds[XY(3, 4)] = CRGB(255, 0, 0);
+  leds[XY(4, 1)] = CRGB(255, 0, 0);
+  leds[XY(4, 2)] = CRGB(255, 0, 0);
+  leds[XY(4, 3)] = CRGB(255, 0, 0);
+  leds[XY(5, 2)] = CRGB(255, 0, 0);
+
+  leds[XY(10, 2)] = CRGB(255, 0, 0);
+  leds[XY(11, 1)] = CRGB(255, 0, 0);
+  leds[XY(11, 2)] = CRGB(255, 0, 0);
+  leds[XY(11, 3)] = CRGB(255, 0, 0);
+  leds[XY(12, 2)] = CRGB(255, 0, 0);
+  leds[XY(12, 3)] = CRGB(255, 0, 0);
+  leds[XY(12, 4)] = CRGB(255, 0, 0);
+  leds[XY(13, 1)] = CRGB(255, 0, 0);
+  leds[XY(13, 2)] = CRGB(255, 0, 0);
+  leds[XY(13, 3)] = CRGB(255, 0, 0);
+  leds[XY(14, 2)] = CRGB(255, 0, 0);
+}
+
+void randyIsAwesome() {
+
+  // startup tasks
+  if (effectInit == false) {
+    effectInit = true;
+    effectDelay = 100;
+  }
+
+  for (byte x = 0; x < kMatrixWidth; x++) {
+    for (int y = 0; y < kMatrixHeight; y++) {
+      leds[XY(x, y)] = CHSV(cycleHue, 40, 40);
+    }
+  }
+
+  int start_x = 1;
+  int end_y = 3;
+  int offset = 9;
+  CRGB coolColour = CHSV(random8(10) * 25, 190, 255);
+
+  leds[XY(start_x, end_y)] = coolColour;
+  leds[XY(start_x+1, end_y-1)] = coolColour;
+  leds[XY(start_x+2, end_y-2)] = coolColour;
+  leds[XY(start_x+3, end_y-1)] = coolColour;
+  leds[XY(start_x+4, end_y)] = coolColour;
+
+  leds[XY(start_x+offset, end_y)] = coolColour;
+  leds[XY(start_x+offset+1, end_y-1)] = coolColour;
+  leds[XY(start_x+offset+2, end_y-2)] = coolColour;
+  leds[XY(start_x+offset+3, end_y-1)] = coolColour;
+  leds[XY(start_x+offset+4, end_y)] = coolColour;
+  
+}
+
+//1,3
+//2,2
+//3,1
+//4,2
+//5,3
+//
+//+9
+//
+//10,3
+//11,2
+//12,1
+//13,2
+//14,3
+
 // Triple Sine Waves
 void threeSine() {
 

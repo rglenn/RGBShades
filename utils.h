@@ -8,6 +8,7 @@ unsigned long cycleMillis = 0; // store the time of last effect change
 unsigned long currentMillis; // store current loop's millis value
 unsigned long hueMillis; // store time of last hue change
 unsigned long eepromMillis; // store time of last setting change
+unsigned long serialMillis;
 byte currentEffect = 0; // index to the currently running effect
 boolean autoCycle = true; // flag for automatic effect changes
 boolean eepromOutdated = false; // flag for when EEPROM may need to be updated

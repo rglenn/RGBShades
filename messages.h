@@ -1,8 +1,8 @@
 // Scrolling messages
 
-const char string0[] PROGMEM = "HELLO WORLD  ";
+const char string0[] PROGMEM = "MAKER FAIRE OTTAWA  ";
 const char string1[] PROGMEM = "RGB SHADES!  ";
-const char string2[] PROGMEM = "macetech.com  ";
+const char string2[] PROGMEM = "@omghaus   ";
 
 const char * const stringArray[] PROGMEM = {
   string0,
